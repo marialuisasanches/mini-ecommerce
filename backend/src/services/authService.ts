@@ -76,9 +76,12 @@ export class AuthService {
 
   private signToken(payload: TokenPayload): string {
     const secret = process.env.JWT_SECRET ?? 'secret';
-    const expiresIn = process.env.JWT_EXPIRES_IN ?? '7d';
+    // Use numeric expiration in seconds to satisfy TypeScript typings (e.g. 24h)
+    const expiresInSeconds = process.env.JWT_EXPIRES_IN_SECONDS
+      ? parseInt(process.env.JWT_EXPIRES_IN_SECONDS, 10)
+      : 60 * 60 * 24; // default 24 hours
 
-    return jwt.sign(payload, secret, { expiresIn });
+    return jwt.sign(payload, secret, { expiresIn: expiresInSeconds });
   }
 }
 

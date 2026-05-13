@@ -28,8 +28,16 @@ export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prisma: PrismaClient = getPrismaClient()) {}
 
   async create(data: CreateUserInput): Promise<User> {
+    const toCreate = {
+      name: data.name,
+      email: data.email,
+      role: data.role ?? 'customer',
+      // ensure password is always a string before passing to Prisma
+      password: data.password ?? '',
+    };
+
     const user = await this.prisma.user.create({
-      data,
+      data: toCreate as any,
     });
 
     return mapPrismaUser(user);
