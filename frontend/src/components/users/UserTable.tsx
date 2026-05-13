@@ -25,10 +25,12 @@ function UserMobileCard({
   user,
   onEdit,
   onDelete,
+  onToggleActive,
 }: {
   user: User;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
+  onToggleActive?: (id: string, ativo: boolean) => void;
 }): JSX.Element {
   return (
     <Card className="border-white/80 bg-white/95 shadow-soft md:hidden">
@@ -61,9 +63,7 @@ function UserMobileCard({
             variant="secondary"
             size="sm"
             className="flex-1"
-            onClick={() => {
-              /* handled by parent for mobile if needed */
-            }}
+            onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
           >
             {user.ativo ? 'Desativar' : 'Ativar'}
           </Button>
@@ -77,7 +77,12 @@ function UserMobileCard({
   );
 }
 
-export function UserTable({ users, onEdit, onDelete }: UserTableProps): JSX.Element {
+export function UserTable({
+  users,
+  onEdit,
+  onDelete,
+  onToggleActive,
+}: UserTableProps): JSX.Element {
   if (users.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-border bg-white/80 p-10 text-center text-sm text-muted-foreground shadow-soft">
@@ -149,7 +154,13 @@ export function UserTable({ users, onEdit, onDelete }: UserTableProps): JSX.Elem
 
       <div className="grid gap-4 md:hidden">
         {users.map((user) => (
-          <UserMobileCard key={user.id} user={user} onEdit={onEdit} onDelete={onDelete} />
+          <UserMobileCard
+            key={user.id}
+            user={user}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onToggleActive={onToggleActive}
+          />
         ))}
       </div>
     </>

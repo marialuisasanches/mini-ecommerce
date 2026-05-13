@@ -33,40 +33,40 @@ O **Mini E-Commerce** é uma aplicação robusta de gestão de **produtos** e **
 
 ### Backend — Node.js + TypeScript + Fastify
 
-| Tecnologia | Versão | Propósito |
-|-----------|--------|----------|
-| **Node.js** | 20+ | Runtime JavaScript |
-| **TypeScript** | 5.6+ | Type safety no código |
-| **Fastify** | 5.3+ | Framework HTTP de alta performance |
-| **Prisma** | 6.8+ | ORM com type safety total |
-| **SQLite** | 3 | Banco de dados relacional |
-| **Zod** | 3.24+ | Validação com inferência de tipos |
-| **Vitest** | - | Framework de testes rápido |
-| **Supertest** | - | Testes de endpoints HTTP |
-| **ESLint** | - | Linting e padrão de código |
-| **Prettier** | - | Formatação automática |
+| Tecnologia     | Versão | Propósito                          |
+| -------------- | ------ | ---------------------------------- |
+| **Node.js**    | 20+    | Runtime JavaScript                 |
+| **TypeScript** | 5.6+   | Type safety no código              |
+| **Fastify**    | 5.3+   | Framework HTTP de alta performance |
+| **Prisma**     | 6.8+   | ORM com type safety total          |
+| **SQLite**     | 3      | Banco de dados relacional          |
+| **Zod**        | 3.24+  | Validação com inferência de tipos  |
+| **Vitest**     | -      | Framework de testes rápido         |
+| **Supertest**  | -      | Testes de endpoints HTTP           |
+| **ESLint**     | -      | Linting e padrão de código         |
+| **Prettier**   | -      | Formatação automática              |
 
 ### Frontend — React + TypeScript + Vite
 
-| Tecnologia | Versão | Propósito |
-|-----------|--------|----------|
-| **React** | 18.3+ | Library para UI moderno |
-| **TypeScript** | 5.6+ | Type safety em React |
-| **Vite** | 6.3+ | Build tool e dev server ultrarrápido |
-| **React Router DOM** | 7.15+ | Roteamento SPA moderno |
-| **TailwindCSS** | 3.4+ | Utility-first CSS |
-| **shadcn/ui** | - | Componentes UI acessíveis |
-| **React Hook Form** | - | Gerenciamento eficiente de formulários |
-| **Axios** | - | HTTP client para API |
-| **Lucide React** | - | Ícones SVG reutilizáveis |
+| Tecnologia           | Versão | Propósito                              |
+| -------------------- | ------ | -------------------------------------- |
+| **React**            | 18.3+  | Library para UI moderno                |
+| **TypeScript**       | 5.6+   | Type safety em React                   |
+| **Vite**             | 6.3+   | Build tool e dev server ultrarrápido   |
+| **React Router DOM** | 7.15+  | Roteamento SPA moderno                 |
+| **TailwindCSS**      | 3.4+   | Utility-first CSS                      |
+| **shadcn/ui**        | -      | Componentes UI acessíveis              |
+| **React Hook Form**  | -      | Gerenciamento eficiente de formulários |
+| **Axios**            | -      | HTTP client para API                   |
+| **Lucide React**     | -      | Ícones SVG reutilizáveis               |
 
 ### DevOps & Deployment
 
-| Tecnologia | Ambiente | Propósito |
-|-----------|----------|----------|
+| Tecnologia | Ambiente | Propósito                        |
+| ---------- | -------- | -------------------------------- |
 | **Render** | Produção | Deploy automático com migrations |
-| **GitHub** | SCM | Versionamento de código |
-| **Vercel** | Produção | Deploy frontend (opcional) |
+| **GitHub** | SCM      | Versionamento de código          |
+| **Vercel** | Produção | Deploy frontend (opcional)       |
 
 ---
 
@@ -162,6 +162,7 @@ src/
 ## 📦 Funcionalidades
 
 ### 🛒 Gerenciamento de Produtos
+
 - ✅ **CRUD Completo** — Criar, listar, visualizar, editar e deletar produtos
 - ✅ **Validação Forte** — Nome, descrição, preço, estoque, categoria obrigatórios
 - ✅ **Busca e Filtros** — Filtrar por nome e categoria em tempo real
@@ -170,6 +171,7 @@ src/
 - ✅ **Feedback Visual** — Toasts de sucesso e erro
 
 ### 👥 Gerenciamento de Usuários
+
 - ✅ **CRUD Completo** — Criar, listar, visualizar, editar e deletar usuários
 - ✅ **Validação de Email** — Constraint unique no banco + validação no service
 - ✅ **Sistema de Roles** — Suporte a "customer" e "admin" para futuros ACLs
@@ -178,6 +180,7 @@ src/
 - ✅ **Interface Responsiva** — Tabela desktop + cards mobile
 
 ### 🔧 Funcionalidades Técnicas
+
 - ✅ **Tratamento de Erros Robusto** — Respostas JSON padronizadas
 - ✅ **Validação em Camadas** — Zod → TypeScript → Prisma
 - ✅ **Migrations Versionadas** — Prisma com histórico completo
@@ -201,11 +204,13 @@ Desenvolvimento: http://localhost:3001/api/v1
 ### Endpoints de Produtos
 
 #### ✨ Listar Produtos
+
 ```http
 GET /api/v1/products
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -214,7 +219,7 @@ GET /api/v1/products
       "id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
       "name": "Laptop Pro",
       "description": "Laptop de alta performance",
-      "price": 3500.00,
+      "price": 3500.0,
       "stock": 5,
       "category": "Eletrônicos",
       "imageUrl": "https://...",
@@ -225,6 +230,7 @@ GET /api/v1/products
 ```
 
 #### ✨ Criar Produto
+
 ```http
 POST /api/v1/products
 Content-Type: application/json
@@ -240,6 +246,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -247,7 +254,7 @@ Content-Type: application/json
     "id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
     "name": "Laptop Pro",
     "description": "Laptop de alta performance com RTX 4090",
-    "price": 3500.00,
+    "price": 3500.0,
     "stock": 5,
     "category": "Eletrônicos",
     "imageUrl": "https://example.com/laptop.jpg",
@@ -257,11 +264,13 @@ Content-Type: application/json
 ```
 
 #### ✨ Obter Produto por ID
+
 ```http
 GET /api/v1/products/:id
 ```
 
 #### ✨ Atualizar Produto
+
 ```http
 PUT /api/v1/products/:id
 Content-Type: application/json
@@ -274,6 +283,7 @@ Content-Type: application/json
 ```
 
 #### ✨ Deletar Produto
+
 ```http
 DELETE /api/v1/products/:id
 ```
@@ -285,11 +295,13 @@ DELETE /api/v1/products/:id
 ### Endpoints de Usuários
 
 #### ✨ Listar Usuários
+
 ```http
 GET /api/v1/users
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -306,6 +318,7 @@ GET /api/v1/users
 ```
 
 #### ✨ Criar Usuário
+
 ```http
 POST /api/v1/users
 Content-Type: application/json
@@ -318,6 +331,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -332,6 +346,7 @@ Content-Type: application/json
 ```
 
 #### ✨ Atualizar Usuário
+
 ```http
 PUT /api/v1/users/:id
 Content-Type: application/json
@@ -344,6 +359,7 @@ Content-Type: application/json
 ```
 
 #### ✨ Deletar Usuário
+
 ```http
 DELETE /api/v1/users/:id
 ```
@@ -365,19 +381,20 @@ Todos os erros seguem um padrão consistente:
 }
 ```
 
-| Código | Status | Descrição |
-|--------|--------|-----------|
-| `VALIDATION_ERROR` | 400 | Erro de validação de entrada |
-| `CONFLICT_ERROR` | 409 | Email ou recurso já existe |
-| `NOT_FOUND_ERROR` | 404 | Recurso não encontrado |
-| `ROUTE_NOT_FOUND` | 404 | Rota não existe |
-| `INTERNAL_ERROR` | 500 | Erro interno do servidor |
+| Código             | Status | Descrição                    |
+| ------------------ | ------ | ---------------------------- |
+| `VALIDATION_ERROR` | 400    | Erro de validação de entrada |
+| `CONFLICT_ERROR`   | 409    | Email ou recurso já existe   |
+| `NOT_FOUND_ERROR`  | 404    | Recurso não encontrado       |
+| `ROUTE_NOT_FOUND`  | 404    | Rota não existe              |
+| `INTERNAL_ERROR`   | 500    | Erro interno do servidor     |
 
 ---
 
 ## 📊 Schema do Banco de Dados
 
 ### Product
+
 ```prisma
 model Product {
   id          String   @id @default(uuid())
@@ -392,6 +409,7 @@ model Product {
 ```
 
 ### User
+
 ```prisma
 model User {
   id        String   @id @default(uuid())
@@ -422,12 +440,14 @@ cd mini-ecommerce
 ### 2️⃣ Instalar Dependências
 
 **Backend:**
+
 ```bash
 cd backend
 npm install
 ```
 
 **Frontend:**
+
 ```bash
 cd frontend
 npm install
@@ -436,6 +456,7 @@ npm install
 ### 3️⃣ Configurar Variáveis de Ambiente
 
 **Backend (.env):**
+
 ```bash
 cd backend
 cat > .env << 'EOF'
@@ -445,6 +466,7 @@ EOF
 ```
 
 **Frontend (.env.local):**
+
 ```bash
 cd frontend
 cat > .env.local << 'EOF'
@@ -484,24 +506,28 @@ Frontend rodando em: `http://localhost:5173` ✅
 ## 🧪 Testes
 
 ### Rodar Todos os Testes
+
 ```bash
 cd backend
 npm run test
 ```
 
 ### Modo Watch (reexecuta ao salvar)
+
 ```bash
 cd backend
 npm run test:watch
 ```
 
 ### Cobertura de Testes
+
 ```bash
 cd backend
 npm run test:coverage
 ```
 
 ### Testes Implementados
+
 - ✅ **Unit Tests** — `productService.test.ts`, `userService.test.ts`
 - ✅ **Integration Tests** — `productRoutes.test.ts`, `userRoutes.test.ts`
 - ✅ **Fixtures** — `inMemoryProductRepository.ts`, `inMemoryUserRepository.ts`
@@ -511,12 +537,14 @@ npm run test:coverage
 ## 🚀 Deploy no Render
 
 ### Pré-requisitos
+
 - Conta no [Render](https://render.com) (free tier disponível)
 - Repositório no GitHub com código commitado
 
 ### Passos de Deploy
 
 #### 1️⃣ Push para GitHub
+
 ```bash
 git add .
 git commit -m "chore: pronto para deploy"
@@ -524,27 +552,30 @@ git push origin main
 ```
 
 #### 2️⃣ Conectar Render
+
 1. Acesse [Render Dashboard](https://dashboard.render.com/)
 2. Clique em **"New +"** → **"Web Service"**
 3. Authorize GitHub e selecione o repositório
 4. Configure conforme abaixo:
 
 ```yaml
-Name:             mini-ecommerce-backend
-Environment:      Node
-Root Directory:   backend
-Build Command:    npm install && npx prisma migrate deploy && npm run build
-Start Command:    npm run start
-Plan:             Free
+Name: mini-ecommerce-backend
+Environment: Node
+Root Directory: backend
+Build Command: npm install && npx prisma migrate deploy && npm run build
+Start Command: npm run start
+Plan: Free
 ```
 
 #### 3️⃣ Deploy e Monitoramento
+
 - Clique em **"Create Web Service"**
 - Acesse **"Logs"** para ver o progresso
 - Confirme que a migration foi executada
 - Acesse `https://mini-ecommerce-backend-l1pc.onrender.com/api/v1/products` para testar
 
 #### 4️⃣ Deploy Frontend (Vercel - recomendado)
+
 ```bash
 npm i -g vercel
 cd frontend
@@ -646,6 +677,7 @@ mini-ecommerce/
 ## 🎯 Padrões de Código
 
 ### Backend - Service Layer Pattern
+
 ```typescript
 // routes → controllers → services → repositories
 // Cada camada tem responsabilidade clara
@@ -654,6 +686,7 @@ mini-ecommerce/
 ```
 
 ### Frontend - Hooks + Services Pattern
+
 ```typescript
 // Components → Hooks → Services → API
 // Custom hooks gerenciam estado
@@ -662,6 +695,7 @@ mini-ecommerce/
 ```
 
 ### Validação - Zod Schema First
+
 ```typescript
 // Define schema Zod → gera tipos TypeScript
 // Mesmo schema usado em routes, services e frontend
@@ -669,6 +703,7 @@ mini-ecommerce/
 ```
 
 ### Erro - Centralizado e Padronizado
+
 ```typescript
 // Erros customizados (ApplicationError, ConflictError, NotFoundError)
 // Middleware centralizado converte para JSON padronizado
@@ -706,6 +741,7 @@ mini-ecommerce/
 5. Abra um Pull Request
 
 ### Padrões de Commit
+
 - `feat:` — Nova funcionalidade
 - `fix:` — Correção de bug
 - `docs:` — Alterações em documentação
