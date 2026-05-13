@@ -330,40 +330,6 @@ Este usuário é criado automaticamente quando o servidor inicia pela primeira v
 
 ---
 
-## 📸 Screenshots
-
-### Tela de Login
-
-```
-[Adicionar screenshot da tela de login com design premium]
-```
-
-### Dashboard de Produtos
-
-```
-[Adicionar screenshot da listagem de produtos]
-```
-
-### Dashboard de Usuários
-
-```
-[Adicionar screenshot da listagem de usuários]
-```
-
-### Criar/Editar Produto
-
-```
-[Adicionar screenshot do formulário de produto]
-```
-
-### Criar/Editar Usuário
-
-```
-[Adicionar screenshot do formulário de usuário]
-```
-
----
-
 ## ✅ Critérios de Avaliação Atendidos
 
 ### Requisitos Obrigatórios
