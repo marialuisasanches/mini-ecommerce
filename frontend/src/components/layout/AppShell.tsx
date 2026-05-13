@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 export function AppShell({ children }: PropsWithChildren): JSX.Element {
+  const { user, logout } = useAuth();
   return (
     <div className="relative min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.16),_transparent_26%),radial-gradient(circle_at_top_right,_rgba(249,115,22,0.12),_transparent_24%),linear-gradient(180deg,_#f9fbfb_0%,_#f3f4f6_100%)] text-foreground">
       <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-[length:56px_56px] opacity-[0.18]" />
@@ -16,7 +18,7 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
             </h1>
           </div>
 
-          <nav className="flex flex-wrap gap-2">
+          <nav className="flex flex-wrap gap-2 items-center">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -43,6 +45,28 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
             >
               Usuários
             </NavLink>
+            <div className="ml-4 flex items-center gap-3">
+              {user ? (
+                <>
+                  <div className="text-sm text-muted-foreground">
+                    {user.name} <span className="ml-2 font-medium">({user.role})</span>
+                  </div>
+                  <button
+                    className="rounded-full bg-muted px-3 py-1 text-sm"
+                    onClick={() => logout()}
+                  >
+                    Sair
+                  </button>
+                </>
+              ) : (
+                <NavLink
+                  to="/login"
+                  className="rounded-full bg-muted px-3 py-1 text-sm font-semibold"
+                >
+                  Entrar
+                </NavLink>
+              )}
+            </div>
           </nav>
         </header>
 

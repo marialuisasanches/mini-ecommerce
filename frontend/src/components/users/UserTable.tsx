@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/table';
 import { User } from '@/types/user';
 import { formatDate } from '@/utils/formatDate';
+import { useAuth } from '@/hooks/useAuth';
 
 type UserTableProps = {
   users: User[];
@@ -32,6 +33,7 @@ function UserMobileCard({
   onDelete: (user: User) => void;
   onToggleActive?: (id: string, ativo: boolean) => void;
 }): JSX.Element {
+  const auth = useAuth();
   return (
     <Card className="border-white/80 bg-white/95 shadow-soft md:hidden">
       <CardContent className="space-y-4 p-5">
@@ -55,22 +57,31 @@ function UserMobileCard({
         </div>
 
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => onEdit(user)}>
-            <Edit3 className="mr-2 h-4 w-4" />
-            Editar
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="flex-1"
-            onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
-          >
-            {user.ativo ? 'Desativar' : 'Ativar'}
-          </Button>
-          <Button variant="destructive" size="sm" className="flex-1" onClick={() => onDelete(user)}>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Remover
-          </Button>
+          {auth.user?.role === 'admin' && (
+            <>
+              <Button variant="outline" size="sm" className="flex-1" onClick={() => onEdit(user)}>
+                <Edit3 className="mr-2 h-4 w-4" />
+                Editar
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="flex-1"
+                onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
+              >
+                {user.ativo ? 'Desativar' : 'Ativar'}
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                className="flex-1"
+                onClick={() => onDelete(user)}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Remover
+              </Button>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -83,6 +94,7 @@ export function UserTable({
   onDelete,
   onToggleActive,
 }: UserTableProps): JSX.Element {
+  const auth = useAuth();
   if (users.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-border bg-white/80 p-10 text-center text-sm text-muted-foreground shadow-soft">
@@ -129,21 +141,25 @@ export function UserTable({
                 </TableCell>
                 <TableCell>
                   <div className="flex justify-end gap-2">
-                    <Button variant="outline" size="sm" onClick={() => onEdit(user)}>
-                      <Edit3 className="mr-2 h-4 w-4" />
-                      Editar
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
-                    >
-                      {user.ativo ? 'Desativar' : 'Ativar'}
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => onDelete(user)}>
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Remover
-                    </Button>
+                    {auth.user?.role === 'admin' && (
+                      <>
+                        <Button variant="outline" size="sm" onClick={() => onEdit(user)}>
+                          <Edit3 className="mr-2 h-4 w-4" />
+                          Editar
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
+                        >
+                          {user.ativo ? 'Desativar' : 'Ativar'}
+                        </Button>
+                        <Button variant="destructive" size="sm" onClick={() => onDelete(user)}>
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          Remover
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>

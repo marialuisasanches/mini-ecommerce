@@ -9,3 +9,18 @@ export const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// attach token from localStorage to all requests
+api.interceptors.request.use((config) => {
+  try {
+    const token = localStorage.getItem('token');
+
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  return config;
+});

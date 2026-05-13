@@ -12,7 +12,8 @@ export type User = {
 export type CreateUserInput = {
   name: string;
   email: string;
-  role: UserRole;
+  role?: UserRole;
+  password?: string;
 };
 
 export type UpdateUserInput = {

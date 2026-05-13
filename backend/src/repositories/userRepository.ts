@@ -15,10 +15,12 @@ export interface UserRepository {
 type PrismaUser = Awaited<ReturnType<PrismaClient['user']['create']>>;
 
 function mapPrismaUser(user: PrismaUser): User {
+  const { password: _password, ...rest } = user as any;
+
   return {
-    ...user,
+    ...rest,
     role: user.role as UserRole,
-  };
+  } as User;
 }
 
 export class PrismaUserRepository implements UserRepository {
@@ -71,5 +73,10 @@ export class PrismaUserRepository implements UserRepository {
     await this.prisma.user.delete({
       where: { id },
     });
+  }
+
+  // raw access to fetch password when needed by auth service
+  async findByEmailWithPassword(email: string): Promise<any | null> {
+    return this.prisma.user.findUnique({ where: { email } });
   }
 }

@@ -7,10 +7,13 @@ import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFoundHandler';
 import { registerProductRoutes } from './routes/productRoutes';
 import { registerUserRoutes } from './routes/userRoutes';
+import { registerAuthRoutes } from './routes/authRoutes';
 import { PrismaProductRepository, ProductRepository } from './repositories/productRepository';
 import { PrismaUserRepository, UserRepository } from './repositories/userRepository';
 import { createProductService } from './services/productService';
 import { createUserService } from './services/userService';
+import { createAuthService } from './services/authService';
+import { createAuthController } from './controllers/authController';
 
 type BuildAppOptions = {
   productRepository?: ProductRepository;
@@ -25,6 +28,8 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   const productController = new ProductController(productService);
   const userService = createUserService(userRepository);
   const userController = new UserController(userService);
+  const authService = createAuthService(userRepository);
+  const authController = createAuthController(authService);
 
   app.register(cors, {
     origin: true,
@@ -63,6 +68,14 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
       done();
     },
     { prefix: '/api/v1/users' },
+  );
+
+  app.register(
+    (instance, _options, done) => {
+      registerAuthRoutes(instance, authController);
+      done();
+    },
+    { prefix: '/api/v1/auth' },
   );
 
   return app;

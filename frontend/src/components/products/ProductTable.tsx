@@ -3,6 +3,7 @@ import { Edit3, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+  const { user } = useAuth();
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import {
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { formatDate } from '@/utils/formatDate';
+import { useAuth } from '@/hooks/useAuth';
 
 type ProductTableProps = {
   products: Product[];
@@ -50,28 +52,22 @@ function ProductMobileCard({
             <span className="block text-muted-foreground">Preco</span>
             <span className="font-semibold">{formatCurrency(product.price)}</span>
           </div>
-          <div className="rounded-xl bg-muted/60 p-3">
-            <span className="block text-muted-foreground">Criado em</span>
-            <span className="font-semibold">{formatDate(product.createdAt)}</span>
-          </div>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => onEdit(product)}>
-            <Edit3 className="mr-2 h-4 w-4" />
-            Editar
-          </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            className="flex-1"
-            onClick={() => onDelete(product)}
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            Remover
-          </Button>
-        </div>
-      </CardContent>
+                    {user?.role === 'admin' && (
+                      <>
+                        <Button variant="outline" size="sm" onClick={() => onEdit(product)}>
+                          <Edit3 className="mr-2 h-4 w-4" />
+                          Editar
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => onDelete(product)}
+                        >
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          Remover
+                        </Button>
+                      </>
+                    )}
     </Card>
   );
 }
@@ -125,14 +121,30 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps):
                 </TableCell>
                 <TableCell>
                   <div className="flex justify-end gap-2">
-                    <Button variant="outline" size="sm" onClick={() => onEdit(product)}>
-                      <Edit3 className="mr-2 h-4 w-4" />
-                      Editar
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => onDelete(product)}>
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Remover
-                    </Button>
+                    {(() => {
+                      const { user } = useAuth();
+
+                      if (user?.role === 'admin') {
+                        return (
+                          <>
+                            <Button variant="outline" size="sm" onClick={() => onEdit(product)}>
+                              <Edit3 className="mr-2 h-4 w-4" />
+                              Editar
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => onDelete(product)}
+                            >
+                              <Trash2 className="mr-2 h-4 w-4" />
+                              Remover
+                            </Button>
+                          </>
+                        );
+                      }
+
+                      return null;
+                    })()}
                   </div>
                 </TableCell>
               </TableRow>
