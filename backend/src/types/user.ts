@@ -5,6 +5,7 @@ export type User = {
   name: string;
   email: string;
   role: UserRole;
+  ativo: boolean;
   createdAt: Date;
 };
 
@@ -14,4 +15,9 @@ export type CreateUserInput = {
   role: UserRole;
 };
 
-export type UpdateUserInput = CreateUserInput;
+export type UpdateUserInput = {
+  name: string;
+  email: string;
+  role: UserRole;
+  ativo?: boolean;
+};

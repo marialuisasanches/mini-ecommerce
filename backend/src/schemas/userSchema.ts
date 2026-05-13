@@ -8,7 +8,9 @@ export const userBaseSchema = z.object({
 
 export const createUserSchema = userBaseSchema;
 
-export const updateUserSchema = userBaseSchema;
+export const updateUserSchema = userBaseSchema.extend({
+  ativo: z.boolean().optional(),
+});
 
 export const userIdParamsSchema = z.object({
   id: z.string().uuid('Id do usuario invalido'),
