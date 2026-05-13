@@ -25,6 +25,7 @@ export function UsersDashboard(): JSX.Element {
     handleCreateUser,
     handleUpdateUser,
     handleDeleteUser,
+    handleToggleActive,
   } = useUsers();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -117,6 +118,15 @@ export function UsersDashboard(): JSX.Element {
       throw deleteError;
     } finally {
       setIsDeleting(false);
+    }
+  }
+
+  async function handleToggle(user: User): Promise<void> {
+    try {
+      await handleToggleActive(user.id, !user.ativo);
+      toast.success(`Usuário ${user.ativo ? 'desativado' : 'ativado'} com sucesso.`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Falha ao atualizar estado do usuário.');
     }
   }
 
@@ -214,7 +224,14 @@ export function UsersDashboard(): JSX.Element {
             Carregando usuários...
           </div>
         ) : (
-          <UserTable users={filteredUsers} onEdit={handleOpenEdit} onDelete={handleOpenDelete} />
+          <UserTable
+            users={filteredUsers}
+            onEdit={handleOpenEdit}
+            onDelete={handleOpenDelete}
+            onToggleActive={(id, ativo) =>
+              void handleToggle(users.find((u) => u.id === id) as User)
+            }
+          />
         )}
       </section>
 

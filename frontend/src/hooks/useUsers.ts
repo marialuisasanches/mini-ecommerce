@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { createUser, deleteUser, listUsers, updateUser } from '@/services/userService';
+import {
+  createUser,
+  deleteUser,
+  listUsers,
+  updateUser,
+  toggleUserActive,
+} from '@/services/userService';
 import { User, UserFormValues } from '@/types/user';
 
 export function useUsers() {
@@ -55,6 +61,16 @@ export function useUsers() {
     setUsers((currentUsers: User[]) => currentUsers.filter((user) => user.id !== id));
   }
 
+  async function handleToggleActive(id: string, ativo: boolean): Promise<User> {
+    const user = await toggleUserActive(id, ativo);
+
+    setUsers((currentUsers: User[]) =>
+      currentUsers.map((currentUser) => (currentUser.id === id ? user : currentUser)),
+    );
+
+    return user;
+  }
+
   useEffect(() => {
     void fetchUsers();
   }, []);
@@ -69,5 +85,6 @@ export function useUsers() {
     handleCreateUser,
     handleUpdateUser,
     handleDeleteUser,
+    handleToggleActive,
   };
 }

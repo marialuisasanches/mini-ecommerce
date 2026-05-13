@@ -44,3 +44,19 @@ export async function getUserById(id: string): Promise<User> {
 
   return response.data.data;
 }
+
+export async function toggleUserActive(id: string, active: boolean): Promise<User> {
+  // Obtain current user and perform an update including existing fields to satisfy backend validation
+  const user = await getUserById(id);
+
+  const payload = normalizeUserPayload({
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    ativo: active,
+  } as UserFormValues);
+
+  const response = await api.put<UserResponse>(`${USERS_ENDPOINT}/${id}`, payload);
+
+  return response.data.data;
+}

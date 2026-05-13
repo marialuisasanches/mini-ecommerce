@@ -5,6 +5,7 @@ export type User = {
   name: string;
   email: string;
   role: UserRole;
+  ativo: boolean;
   createdAt: string;
 };
 
@@ -12,6 +13,7 @@ export type UserFormValues = {
   name: string;
   email: string;
   role: UserRole;
+  ativo?: boolean;
 };
 
 export type ApiSuccessResponse<T> = {

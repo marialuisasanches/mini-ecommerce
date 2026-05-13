@@ -18,6 +18,7 @@ type UserTableProps = {
   users: User[];
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
+  onToggleActive?: (id: string, ativo: boolean) => void;
 };
 
 function UserMobileCard({
@@ -56,6 +57,16 @@ function UserMobileCard({
             <Edit3 className="mr-2 h-4 w-4" />
             Editar
           </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="flex-1"
+            onClick={() => {
+              /* handled by parent for mobile if needed */
+            }}
+          >
+            {user.ativo ? 'Desativar' : 'Ativar'}
+          </Button>
           <Button variant="destructive" size="sm" className="flex-1" onClick={() => onDelete(user)}>
             <Trash2 className="mr-2 h-4 w-4" />
             Remover
@@ -84,6 +95,7 @@ export function UserTable({ users, onEdit, onDelete }: UserTableProps): JSX.Elem
               <TableHead>Nome</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Perfil</TableHead>
+              <TableHead>Ativo</TableHead>
               <TableHead>Criado em</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
@@ -100,6 +112,13 @@ export function UserTable({ users, onEdit, onDelete }: UserTableProps): JSX.Elem
                     {user.role}
                   </Badge>
                 </TableCell>
+                <TableCell>
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-1 text-xs ${user.ativo ? 'bg-emerald-50 text-emerald-700' : 'bg-destructive/10 text-destructive'}`}
+                  >
+                    {user.ativo ? 'Ativo' : 'Inativo'}
+                  </span>
+                </TableCell>
                 <TableCell className="text-muted-foreground">
                   {formatDate(user.createdAt)}
                 </TableCell>
@@ -108,6 +127,13 @@ export function UserTable({ users, onEdit, onDelete }: UserTableProps): JSX.Elem
                     <Button variant="outline" size="sm" onClick={() => onEdit(user)}>
                       <Edit3 className="mr-2 h-4 w-4" />
                       Editar
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => onToggleActive && onToggleActive(user.id, !user.ativo)}
+                    >
+                      {user.ativo ? 'Desativar' : 'Ativar'}
                     </Button>
                     <Button variant="destructive" size="sm" onClick={() => onDelete(user)}>
                       <Trash2 className="mr-2 h-4 w-4" />
