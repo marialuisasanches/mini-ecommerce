@@ -8,6 +8,7 @@ export interface UserRepository {
   findAll(): Promise<User[]>;
   findById(id: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
+  findByEmailWithPassword(email: string): Promise<(User & { password: string }) | null>;
   update(id: string, data: UpdateUserInput): Promise<User>;
   delete(id: string): Promise<void>;
 }
@@ -60,6 +61,19 @@ export class PrismaUserRepository implements UserRepository {
     return user ? mapPrismaUser(user) : null;
   }
 
+  async findByEmailWithPassword(email: string): Promise<(User & { password: string }) | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) return null;
+
+    return {
+      ...mapPrismaUser(user),
+      password: (user as any).password,
+    };
+  }
+
   async update(id: string, data: UpdateUserInput): Promise<User> {
     const user = await this.prisma.user.update({
       where: { id },
@@ -73,10 +87,5 @@ export class PrismaUserRepository implements UserRepository {
     await this.prisma.user.delete({
       where: { id },
     });
-  }
-
-  // raw access to fetch password when needed by auth service
-  async findByEmailWithPassword(email: string): Promise<any | null> {
-    return this.prisma.user.findUnique({ where: { email } });
   }
 }

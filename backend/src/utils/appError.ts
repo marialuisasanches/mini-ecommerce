@@ -37,3 +37,17 @@ export class DatabaseError extends ApplicationError {
     this.name = 'DatabaseError';
   }
 }
+
+export class UnauthorizedError extends ApplicationError {
+  constructor(message = 'Não autorizado', details?: string) {
+    super('UNAUTHORIZED', message, 401, details);
+    this.name = 'UnauthorizedError';
+  }
+}
+
+export class ForbiddenError extends ApplicationError {
+  constructor(message = 'Acesso negado', details?: string) {
+    super('FORBIDDEN', message, 403, details);
+    this.name = 'ForbiddenError';
+  }
+}
