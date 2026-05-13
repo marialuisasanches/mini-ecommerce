@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -64,6 +64,21 @@ export function ProductFormDialog({
     resolver: zodResolver(productFormSchema),
     defaultValues,
   });
+  const [imagePreviewError, setImagePreviewError] = useState(false);
+  const imageUrlValue = form.watch('imageUrl');
+  const imageUrl = imageUrlValue?.trim() ?? '';
+  const isImageUrlValid = (() => {
+    if (!imageUrl) {
+      return false;
+    }
+
+    try {
+      new URL(imageUrl);
+      return true;
+    } catch {
+      return false;
+    }
+  })();
 
   useEffect(() => {
     if (open && product) {
@@ -82,6 +97,10 @@ export function ProductFormDialog({
       form.reset(defaultValues);
     }
   }, [form, open, product]);
+
+  useEffect(() => {
+    setImagePreviewError(false);
+  }, [imageUrl]);
 
   async function handleSubmit(values: ProductFormValuesSchema): Promise<void> {
     await onSubmit(normalizeFormValues(values));
@@ -167,6 +186,22 @@ export function ProductFormDialog({
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="imageUrl">Imagem (opcional)</Label>
               <Input id="imageUrl" placeholder="https://..." {...form.register('imageUrl')} />
+              {imageUrl ? (
+                <div className="mt-2 flex h-[200px] w-[200px] items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/30">
+                  {isImageUrlValid && !imagePreviewError ? (
+                    <img
+                      src={imageUrl}
+                      alt="Preview da imagem do produto"
+                      className="h-full w-full object-contain"
+                      onError={() => setImagePreviewError(true)}
+                    />
+                  ) : (
+                    <span className="px-3 text-center text-sm text-muted-foreground">
+                      Imagem não encontrada
+                    </span>
+                  )}
+                </div>
+              ) : null}
               {form.formState.errors.imageUrl && (
                 <p className="text-sm text-destructive">{form.formState.errors.imageUrl.message}</p>
               )}
