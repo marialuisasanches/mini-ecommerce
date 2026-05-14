@@ -25,7 +25,7 @@ A aplicação demonstra boas práticas de desenvolvimento web moderno, incluindo
 
 ---
 
-## � Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 ### Frontend
 
@@ -48,7 +48,7 @@ A aplicação demonstra boas práticas de desenvolvimento web moderno, incluindo
 
 ### Banco de Dados & Deploy
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-336791?logo=postgresql&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Latest-003B57?logo=sqlite&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-Deploy-46E3B7?logo=render&logoColor=white)
 
 ---
@@ -338,7 +338,7 @@ Este usuário é criado automaticamente quando o servidor inicia pela primeira v
 - ✅ **CRUD Completo de Usuários** — Create, Read, Update, Delete funcionando
 - ✅ **Backend em Node.js + Fastify** — API RESTful com TypeScript
 - ✅ **Frontend em React** — Interface responsiva com componentes reutilizáveis
-- ✅ **Banco de Dados Relacional** — PostgreSQL com Prisma ORM
+- ✅ **Banco de Dados Relacional** — SQLite com Prisma ORM
 - ✅ **Persistência de Dados** — Migrations e seed automático
 - ✅ **Deploy em Produção** — Frontend e Backend no Render
 
