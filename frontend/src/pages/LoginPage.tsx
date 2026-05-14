@@ -103,18 +103,7 @@ export function LoginPage(): JSX.Element {
               </button>
             </form>
 
-            {/* Register Link */}
-            <div className="mt-6 border-t border-slate-200 pt-6 text-center">
-              <p className="text-slate-600">
-                Não tem conta?{' '}
-                <Link
-                  to="/register"
-                  className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors duration-200"
-                >
-                  Cadastre-se
-                </Link>
-              </p>
-            </div>
+            {/* Register link removed - login restricted to existing users (admin) */}
           </div>
         </div>
 
