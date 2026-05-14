@@ -5,7 +5,7 @@ import { ProductsPage } from '@/pages/ProductsPage';
 import { UsersPage } from '@/pages/UsersPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { RegisterPage } from '@/pages/RegisterPage';
+// RegisterPage removed - registration disabled (admin-only)
 
 function App(): JSX.Element {
   return (
@@ -28,7 +28,7 @@ function App(): JSX.Element {
           }
         />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        {/* Registration route removed - registration disabled */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster richColors position="top-right" closeButton />
